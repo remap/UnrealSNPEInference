@@ -389,7 +389,7 @@ bool AAIInferenceActor::RunInference(const TArray<float>& InputData, TArray<floa
 
     // Extract output
     // YOLO11n-pose output: (1, 56, 1344)
-    // 56 = 4 (bbox) + 1 (confidence) + 51 (17 keypoints × 3)
+    // 56 = 4 (bbox) + 1 (confidence) + 51 (17 keypoints Ã— 3)
     // 1344 = number of detection anchors
 
     const char* OutputName = "output_0";
@@ -686,7 +686,7 @@ FAIInferenceResult AAIInferenceActor::PostprocessOutput(const TArray<float>& Out
     //   Channel 1: box_center_y
     //   Channel 2: box_width
     //   Channel 3: box_height
-    //   Channels 4-54: 17 keypoints × 3 (x, y, visibility)
+    //   Channels 4-54: 17 keypoints Ã— 3 (x, y, visibility)
     //   Channel 55: confidence (NOT 4!)
 
     const int32 NumChannels = 56;
@@ -828,19 +828,6 @@ FAIInferenceResult AAIInferenceActor::PostprocessOutput(const TArray<float>& Out
         float KpX = OutputData[(BaseChannel + 1) * NumAnchors + BestIdx] / ModelInputSize;
         float KpY = OutputData[(BaseChannel + 2) * NumAnchors + BestIdx] / ModelInputSize;
 
-        // Apply same Y expansion to keypoint vertical distances from SCREEN center
-        // This is critical: we must expand around screen center (0.5), not box center
-        // because the camera/display coordinate system is anchored at screen center
-        float WidgetAspect = 2246.0f / 1081.0f;
-        float CameraAspect = 640.0f / 480.0f;
-        float YExpansion = WidgetAspect / CameraAspect;
-
-        // Additional correction for camera cropping/offset
-        const float YOffsetCorrection = 0.0f;  // Adjust this value: try -0.05 to +0.05
-        const float YScaleCorrection = 1.0f;   // Adjust this if needed: try 0.9 to 1.1
-
-        // Expand around screen center (0.5), not box center
-        const float ScreenCenterY = 0.5f;
         KpY = ScreenCenterY + (KpY - ScreenCenterY) * YExpansion * YScaleCorrection + YOffsetCorrection;
 
         // Clamp coordinates
@@ -900,4 +887,5 @@ void AAIInferenceActor::ShutdownInference()
         UE_LOG(LogTemp, Log, TEXT("Final Stats: %d inferences, avg %.2f ms per frame"),
             InferenceCounter, AvgTime);
     }
+
 }
