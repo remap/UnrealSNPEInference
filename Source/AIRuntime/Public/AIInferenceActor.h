@@ -99,6 +99,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI Inference")
     bool bUseGPUAcceleration;
 
+    bool SaveFrames;
+
     // Blueprint events
     /** Called when inference completes successfully */
     UFUNCTION(BlueprintImplementableEvent, Category = "AI Inference")
@@ -129,4 +131,5 @@ private:
     // Debug functions
     void SaveDebugImage(const TArray<float>& ImageData, int32 Width, int32 Height, const FString& Filename);
     void SaveKeypointsDebugImage(const FAIInferenceResult& Result, int32 Width, int32 Height, const FString& Filename);
+
 };
