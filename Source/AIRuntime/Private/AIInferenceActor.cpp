@@ -48,6 +48,7 @@ AAIInferenceActor::AAIInferenceActor()
     DefaultModelName = TEXT("yolo11n-pose.dlc");
     bEnableLogging = true;
     bUseGPUAcceleration = false;
+    SaveFrames = false;
 
     // Internal state
     bIsInitialized = false;
@@ -239,7 +240,7 @@ FAIInferenceResult AAIInferenceActor::ProcessCameraFrame(const TArray<uint8>& RG
     // Save RAW keypoints (before aspect ratio corrections) for debugging
     static int32 DebugFrameCounter = 0;
     const int32 SaveEveryNFrames = 100;  // Save every 100 frames
-    if (DebugFrameCounter % SaveEveryNFrames == 0)
+    if (SaveFrames && DebugFrameCounter % SaveEveryNFrames == 0)
     {
         int32 SaveIndex = DebugFrameCounter / SaveEveryNFrames;
         SaveDebugImage(InputData, 256, 256,
@@ -889,3 +890,4 @@ void AAIInferenceActor::ShutdownInference()
     }
 
 }
+
