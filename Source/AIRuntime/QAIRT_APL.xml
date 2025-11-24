@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+   <init>
+	   <log text="Initializing ONNXRuntime_APL" />
+   </init>
+
+   <resourceCopies>
+	   <copyFile src="$S(PluginDir)/ThirdParty/qairt/lib/android/libSNPE.so" dst="$S(BuildDir)/libs/arm64-v8a/libSNPE.so" />
+	   <copyFile src="$S(PluginDir)/ThirdParty/qairt/lib/android/libsnpe-android.so" dst="$S(BuildDir)/libs/arm64-v8a/libsnpe-android.so" />
+	   <copyFile src="$S(PluginDir)/ThirdParty/qairt/lib/android/libSnpeHtpPrepare.so" dst="$S(BuildDir)/libs/arm64-v8a/libSnpeHtpPrepare.so" />
+	   <copyFile src="$S(PluginDir)/ThirdParty/qairt/lib/android/libSnpeHtpV68Stub.so" dst="$S(BuildDir)/libs/arm64-v8a/libSnpeHtpV68Stub.so" />
+	   <copyFile src="$S(PluginDir)/ThirdParty/qairt/lib/android/libSnpeHtpV79Stub.so" dst="$S(BuildDir)/libs/arm64-v8a/libSnpeHtpV79Stub.so" />
+	   <copyFile src="$S(PluginDir)/model-config.json" dst="$S(BuildDir)/assets/model-config.json" />
+	   <copyFile src="$S(PluginDir)/yolo11n-pose.dlc" dst="$S(BuildDir)/assets/yolo11n-pose.dlc" />
+   </resourceCopies>
+</root>

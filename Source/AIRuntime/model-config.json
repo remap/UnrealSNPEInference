@@ -1,0 +1,16 @@
+{
+  "baseDir": "/sdcard/Android/data/com.YourCompany.Q_demo/files/Models",
+  "models": [
+    {
+      "name": "PoseModel",
+      "asset": "yolo11n-pose.dlc",
+      "runtime": "C",
+      "inputs": {
+        "images": "images"
+      },
+      "outputs": {
+        "output_0": "output_0"
+      }
+    }
+  ]
+}
